@@ -1,29 +1,27 @@
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
-        int n=nums.length;
-        int [] doublearr=new int[2*n];
-        for(int i=0;i<2*n;i++){
-            doublearr[i]=nums[i%n];
-        }
-        int tempres[]=new int[2*n];
-        Stack<Integer> st=new Stack<>();
-        for(int i=2*n-1;i>=0;i--){
-            int current=doublearr[i];
-            while(!st.isEmpty() && st.peek()<=current){
+       int n = nums.length;
+        int[] res = new int[n];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 2*n - 1; i >= 0; i--) {
+            int current = nums[i % n];
+
+            while (!st.isEmpty() && st.peek() <= current) {
                 st.pop();
             }
-            if(st.isEmpty()){
-                tempres[i]=-1;
+
+            if (i < n) {   // only fill answer in first round
+                if(st.isEmpty()){
+                    res[i]=-1;
+                }
+                else{
+                    res[i]=st.peek();
+                }
             }
-            else{
-                tempres[i]=st.peek();
-            }
+
             st.push(current);
         }
-        int[] finalans=new int[n];
-        for(int i=0;i<n;i++){
-            finalans[i]=tempres[i];
-        }
-        return finalans;
+        return res;
             }
 }
