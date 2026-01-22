@@ -1,38 +1,33 @@
 class Solution {
-    public int minimumPairRemoval(int[] arr) {
-        int n=arr.length;
-        int cnt=0;
-        // we convert array to ArrayList only because
-        // array size cannot change
-        ArrayList<Integer> list=new ArrayList<>();
-       for(int i=0;i<n;i++){
-        list.add(arr[i]);
-       }
-       while(true){ 
-       boolean sorted=true;//ye maan ke chle array sorted hai
-       for(int i=0;i<list.size()-1;i++){
-        if(list.get(i)>list.get(i+1)){
-            sorted=false;
-            break;
+    public boolean isNonDecreasing(ArrayList<Integer> list){
+        for(int i=1;i<list.size();i++){
+            if(list.get(i)<list.get(i-1)){
+                return false;
+            }
         }
-       }
-       if(sorted) break;
-        //find min adjecent pair
-    
+        return true;
+    }
+    public int minimumPairRemoval(int[] nums) {
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int val:nums){
+            list.add(val);
+        }
+        int cntOperations=0;
+        while(!isNonDecreasing(list)){ //while not true 
         int minsum=Integer.MAX_VALUE;
-        int idx=0;
-        for(int i=0;i<list.size()-1;i++){
+        int indx=0;
+        for(int i=0;i+1<list.size();i++){
             int sum=list.get(i)+list.get(i+1);
             if(sum<minsum){
                 minsum=sum;
-                idx=i;
+                indx=i;
             }
         }
-           //replace i and i+1
-           list.set(idx,minsum);
-           list.remove(idx+1);
-           cnt++;
-    }
-        return cnt;
+        //replace pair with sum
+         list.set(indx,minsum);
+         list.remove(indx+1);
+         cntOperations++;
+        }
+        return cntOperations;
     }
 }
