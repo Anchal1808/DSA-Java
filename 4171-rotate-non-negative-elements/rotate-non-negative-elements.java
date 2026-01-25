@@ -1,46 +1,38 @@
 class Solution {
-    public static void reverse(int arr[],int l,int r){
-        while(l<r){
-            int temp=arr[r];
-            arr[r]=arr[l];
-            arr[l]=temp;
-            l++;
-            r--;}
-    }
-    public static void reverseArray(int arr[],int k){
-        int n=arr.length;
-        if(n==0) return;
-        k=k%n;
-        reverse(arr,0,k-1);
-        reverse(arr,k,n-1);
-        reverse(arr,0,n-1);
+    public static ArrayList<Integer>  reverseArray(ArrayList<Integer> list,int start,int end){
+        while(start<end){
+            int temp=list.get(start);
+            list.set(start,list.get(end));
+            list.set(end,temp);
+            start++;
+            end--;
+        }
+        return list;
     }
     public int[] rotateElements(int[] nums, int k) {
         int n=nums.length;
-        if(n==0) return nums;
-    ArrayList<Integer> nonNegative=new ArrayList<>();
-        //add all non-negative to arr
-        for(int i=0;i<nums.length;i++){
+        if(k==0 || n==0) return nums;
+        ArrayList<Integer> posElement=new ArrayList<>();
+        ArrayList<Integer> posIndx=new ArrayList<>();
+        for(int i=0;i<n;i++){
             if(nums[i]>=0){
-                nonNegative.add(nums[i]);
-                                 }
-        }
-        int []arr=new int[nonNegative.size()];
-        for(int i=0;i<arr.length;i++){
-            arr[i]=nonNegative.get(i);
-        }
-        //now call reverse the non-negative array
-            reverseArray(arr,k);
-        int result[]=new int[nums.length];
-        int idx=0;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i]>=0){
-                result[i]=arr[idx++];
-            }else{
-                result[i]=nums[i];
+                posElement.add(nums[i]);
+                posIndx.add(i);
             }
         }
-        return result;
-        
+        int m=posElement.size();
+        if(m==0) return nums;
+
+        k=k%m;
+        // left rotate using reverse method
+        reverseArray(posElement,0,k-1);
+        reverseArray(posElement,k,m-1);
+        reverseArray(posElement,0,m-1);
+        //place back to original indx
+        for(int i=0;i<posIndx.size();i++){
+            nums[posIndx.get(i)]=posElement.get(i);
+        }
+        return nums;
+
     }
 }
