@@ -18,7 +18,7 @@ class Solution {
         //backtrack
          curr.remove(curr.size()-1);
            
-         //not pick skip all duplicates
+         //not pick skip all duplicates to check adjacent element
          int j=i+1;
          while(j<nums.length && nums[j]==nums[i]){
             j++;
