@@ -1,33 +1,37 @@
 class Solution {
-    public int[] sortArray(int[] nums) {
-        return mergeSort(nums);
+    public static void mergeSort(int[] arr,int low,int high){
+      if(low<high){
+        int mid=low+(high-low)/2;
+         mergeSort(arr,low,mid);
+         mergeSort(arr,mid+1,high);
+         merge(arr,low,mid,high);
+      }
     }
+    public static void merge(int[] arr,int low,int mid,int high){
+       int[] temp = new int[high - low + 1];
 
-    private int[] mergeSort(int[] arr) {
-        if (arr.length <= 1) return arr; // base case
+        int i = low, j = mid + 1, k = 0;
 
-        int mid = arr.length / 2;
-        int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
-        int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));
-
-        return merge(left, right);
-    }
-
-    private int[] merge(int[] left, int[] right) {
-        int n = left.length + right.length;
-        int[] result = new int[n];
-
-        int i = 0, j = 0, k = 0;
-        while(i < left.length && j < right.length){
-            if(left[i] <= right[j]){
-                result[k++] = left[i++];
+        while (i <= mid && j <= high) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
             } else {
-                result[k++] = right[j++];
+                temp[k++] = arr[j++];
             }
         }
-        while(i < left.length) result[k++] = left[i++];
-        while(j < right.length) result[k++] = right[j++];
 
-        return result;
+        while (i <= mid) temp[k++] = arr[i++];
+        while (j <= high) temp[k++] = arr[j++];
+
+        // copy back
+        for (int x = 0; x < temp.length; x++) {
+            arr[low + x] = temp[x];
+        }
+    }
+
+    
+    public int[] sortArray(int[] nums) {
+        mergeSort(nums,0,nums.length-1);
+        return nums;
     }
 }
