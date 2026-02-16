@@ -1,19 +1,30 @@
 class Solution {
-    public List<String> removeAnagrams(String[] words) {
-        List<String> ans=new ArrayList<>();
-        int[] prev=new int[26];
-        for(int i=0;i<words.length;i++){
-            int[] curr=new int[26];
-            for(int j=0;j<words[i].length();j++){
-                char ch=words[i].charAt(j);
-                curr[ch- 'a']++;
-            }
-            if(!Arrays.equals(curr,prev)){
-                ans.add(words[i]);
-                prev=curr;
-            }
-
+    public boolean isAnagram(String a,String b){
+        if(a.length()!=b.length()){
+            return false;
         }
-        return ans;
+        char[] arr1=a.toCharArray();
+        char[] arr2=b.toCharArray();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        return Arrays.equals(arr1,arr2);
+    }
+    public List<String> removeAnagrams(String[] words) {
+        Stack<String> st=new Stack<>();
+        for(int i=0;i<words.length;i++){
+            String word=words[i];
+            if(st.isEmpty()){
+                st.push(word);
+            }
+            else{
+                if(isAnagram(st.peek(),word)){
+                    continue;
+                }
+                else{
+                    st.push(word);
+                }
+            }
+        }
+        return new ArrayList<>(st);
     }
 }
