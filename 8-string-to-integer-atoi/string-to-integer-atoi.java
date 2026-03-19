@@ -2,29 +2,25 @@ class Solution {
     public int myAtoi(String s) {
         int n=s.length();
         int i=0;
-        //ignore spaces 
         while(i<n && s.charAt(i)==' '){
             i++;
         }
-        //check for sign
         int sign=1;
-        if(i<n &&(s.charAt(i)=='-' || s.charAt(i)== '+')){
-           sign=(s.charAt(i)=='-') ? -1 : 1;
-           i++;
+        if(i<n &&(s.charAt(i)=='-' || s.charAt(i)=='+')){
+            sign=(s.charAt(i)=='-') ? -1 :1 ;
+            i++;
         }
-        //conversion
-        int res=0;
+        int num=0;
         while(i<n && Character.isDigit(s.charAt(i))){
-            int digit=s.charAt(i)-'0';
-        
-        //overflow
-        if(res>(Integer.MAX_VALUE-digit) / 10){
-            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-
+            int digit=s.charAt(i) - '0';
+            // 4. overflow check (before updating num)
+            if (num > Integer.MAX_VALUE / 10 || 
+               (num == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            num=num*10+digit;
+            i++;
         }
-        res=res*10+digit;
-        i++;
-        }
-        return res*sign;
+        return num*sign;
     }
 }
