@@ -1,21 +1,19 @@
 class Solution {
     public double myPow(double x, int n) {
-        long N=n;
-        if(N<0){
+        long binaryForm=n;
+        if(n<0){
             x=1/x;
-            N=-N;
+            binaryForm=-binaryForm;
         }
-         return power(x,N);
-    }
-    double power(double x, long n) {
-        if (n == 0) return 1.0;
+        double ans=1;
+        while(binaryForm>0){
+            if(binaryForm%2==1){
+                ans*=x;
+            }
+            x*=x;
+            binaryForm/=2;
 
-        double half = power(x, n / 2);
-
-        if (n % 2 == 0) {
-            return half * half;
-        } else {
-            return half * half * x;
         }
+        return ans;
     }
 }
