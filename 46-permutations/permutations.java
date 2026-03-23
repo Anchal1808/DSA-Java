@@ -1,35 +1,27 @@
 class Solution {
-
-    public static void permutation(int idx, int[] arr, List<Integer> temp ,List<List<Integer>> ans) {
-
-        if (idx == arr.length) {
-            ans.add(new ArrayList<>(temp));
+    public static void permutation(boolean[] mp,int[] arr,List<Integer> temp,List<List<Integer>> ans){
+         if(temp.size()==arr.length){
+            ans.add(new ArrayList(temp));
             return;
-        }
-
-        for (int i = idx; i < arr.length; i++) {
-
-            // swap
-            int t = arr[idx];
-            arr[idx] = arr[i];
-            arr[i] = t;
-
-            temp.add(arr[idx]);
-            permutation(idx + 1, arr, temp, ans);
-
-            // backtrack
-            temp.remove(temp.size() - 1);
-
-            // swap back
-            t = arr[idx];
-            arr[idx] = arr[i];
-            arr[i] = t;
-        }
+         }
+         for(int i=0;i<arr.length;i++){
+            if(mp[i]){
+                continue;
+            }
+            temp.add(arr[i]);
+            mp[i]=true;
+            permutation(mp,arr,temp,ans);
+            //backtrack
+            temp.remove(temp.size()-1);
+            mp[i]=false;
+         }
+         
     }
-
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        permutation(0, nums, new ArrayList<>(), ans);
+         List<List<Integer>> ans=new ArrayList<>();
+         boolean[] mp=new boolean[nums.length];
+        List<Integer> temp=new ArrayList<>();
+        permutation(mp,nums,temp,ans);
         return ans;
     }
 }
