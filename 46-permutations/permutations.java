@@ -1,27 +1,26 @@
 class Solution {
-    public static void permutation(boolean[] mp,int[] arr,List<Integer> temp,List<List<Integer>> ans){
-         if(temp.size()==arr.length){
+    public static void permutation(int indx,int[] arr,boolean[] map,List<Integer> temp,List<List<Integer>> ans){
+        if(indx==arr.length){
             ans.add(new ArrayList(temp));
             return;
-         }
-         for(int i=0;i<arr.length;i++){
-            if(mp[i]){
+        }
+        for(int i=0;i<arr.length;i++){
+            if(map[i]){
                 continue;
             }
             temp.add(arr[i]);
-            mp[i]=true;
-            permutation(mp,arr,temp,ans);
+            map[i]=true;
+            permutation(indx+1,arr,map,temp,ans);
             //backtrack
             temp.remove(temp.size()-1);
-            mp[i]=false;
-         }
-         
+            map[i]=false;
+        }
     }
     public List<List<Integer>> permute(int[] nums) {
-         List<List<Integer>> ans=new ArrayList<>();
-         boolean[] mp=new boolean[nums.length];
+        List<List<Integer>> ans=new ArrayList<>();
         List<Integer> temp=new ArrayList<>();
-        permutation(mp,nums,temp,ans);
+        boolean[] map=new boolean[nums.length];
+        permutation(0,nums,map,temp,ans);
         return ans;
     }
 }
