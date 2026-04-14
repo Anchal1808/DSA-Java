@@ -20,8 +20,8 @@ class Solution {
             return ans;
         }
         Queue<TreeNode> q=new LinkedList<>();
-         q.add(root);
-         while(!q.isEmpty()){
+           q.add(root);
+           while(!q.isEmpty()){
             int size=q.size();
             double sum=0;
             for(int i=0;i<size;i++){
@@ -29,16 +29,13 @@ class Solution {
                 sum+=curr.val;
                 if(curr.left!=null){
                     q.add(curr.left);
-                   
                 }
-                 if(curr.right!=null){
+                if(curr.right!=null){
                     q.add(curr.right);
-                   
                 }
-
             }
-            ans.add(sum/size);
-         }
-         return ans;
+            ans.add((double)sum/size);
+           }
+           return ans;
     }
 }
