@@ -13,23 +13,30 @@
  *     }
  * }
  */
-class Solution {
-    public int minDepth(TreeNode root) {
-        if(root==null){
-            return 0;
-        }
-        // if left side is null
-           if(root.left==null){
-          return 1+minDepth(root.right);
-           }
-        //    if right side is null
-          if(root.right==null){
-            return 1+minDepth(root.left);
+ class Solution{ 
+public int minDepth(TreeNode root) {
+    if (root == null) return 0;
 
-          }
-         // if both side exist
-        int left=minDepth(root.left);
-        int right=minDepth(root.right);
-        return 1+Math.min(left,right);
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    int depth = 1;
+
+    while (!q.isEmpty()) {
+        int size = q.size();
+
+        for (int i = 0; i < size; i++) {
+            TreeNode node = q.poll();
+
+            // leaf node mil gaya → answer
+            if (node.left == null && node.right == null) {
+                return depth;
+            }
+
+            if (node.left != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        depth++;
     }
+    return depth;
 }
+ }
