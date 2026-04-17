@@ -18,13 +18,16 @@ class Solution {
         if(root==null){
             return 0;
         }
+        // if left side is null
            if(root.left==null){
           return 1+minDepth(root.right);
            }
+        //    if right side is null
           if(root.right==null){
             return 1+minDepth(root.left);
 
           }
+         // if both side exist
         int left=minDepth(root.left);
         int right=minDepth(root.right);
         return 1+Math.min(left,right);
