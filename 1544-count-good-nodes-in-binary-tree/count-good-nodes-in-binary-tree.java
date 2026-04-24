@@ -23,9 +23,9 @@ class Solution {
             cntt=1;
         }
         int newMax=Math.max(max,node.val);
-        cntt+=cnt(node.left,newMax);
-        cntt+=cnt(node.right,newMax);
-        return cntt;
+        int left=cnt(node.left,newMax);
+        int right=cnt(node.right,newMax);
+        return cntt+left+right;
 
     }
     public int goodNodes(TreeNode root) {
