@@ -18,6 +18,7 @@ class Solution {
                 st.pop();
                 k--;
             }
+       
         while(!st.isEmpty()){
             ans.append(st.peek());
             st.pop();
