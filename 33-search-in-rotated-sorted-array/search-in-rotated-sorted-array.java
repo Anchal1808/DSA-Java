@@ -9,20 +9,20 @@ class Solution {
             return mid;
         }
 
-      else  if(nums[low]<=nums[mid]){
+       else if(nums[low]<=nums[mid]){
             if(target>=nums[low]&&target<nums[mid]){
                 high=mid-1;
             }
-            else{
+            else{//target<nums[low]||target>=nums[mid]
                 low=mid+1;
             }
         }
-        else {
+        else { //nums[low]>nums[mid]
                 
-                if (target > nums[mid] && target <= nums[high]) {
-                    low = mid + 1;
+                if (target>nums[mid] && target<= nums[high]) {
+                    low = mid+1;
                 } else {
-                    high = mid - 1;
+                    high = mid-1;
                 }
             }
 
