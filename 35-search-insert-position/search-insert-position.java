@@ -9,7 +9,7 @@ class Solution {
             if(arr[mid]==target){
                 return mid;
             }
-            else if(arr[mid]>=target){
+            else if(arr[mid]>target){
                     ans=mid;
                     high=mid-1;
             }
