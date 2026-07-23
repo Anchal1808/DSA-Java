@@ -2,6 +2,7 @@ class Solution {
     public double myPow(double x, int n) {
         long N=n;
         double ans=1;
+        //till n becomes zero
         if(N<0){
             N=-N;
             x=1/x;
@@ -10,7 +11,9 @@ class Solution {
             if(N%2==1){
                 ans*=x;
             }
+            //squaring the number
             x*=x;
+            //half the value
             N/=2;
         }
         return ans;
