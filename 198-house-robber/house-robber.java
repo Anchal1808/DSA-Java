@@ -1,20 +1,19 @@
 class Solution {
-    public static int robber(int i,int[] arr,int[] dp){
+    public int robb(int i,int[] arr,int[] dp){
+        //if i==2 and call i+2 which is 4 so the codn give false and out of bound go
         if(i>=arr.length){
             return 0;
         }
         if(dp[i]!=-1){
             return dp[i];
         }
-        int pick=arr[i]+robber(i+2,arr,dp);
-        int ntpick=robber(i+1,arr,dp);
-        return dp[i]=Math.max(pick,ntpick);
+        int ntpick=robb(i+1,arr,dp);
+        int pick=arr[i]+robb(i+2,arr,dp);
+        return dp[i]=Math.max(ntpick,pick);
     }
     public int rob(int[] nums) {
         int[] dp=new int[nums.length];
-        for(int i=0;i<dp.length;i++){
-            dp[i]=-1;
-        }
-      return robber(0,nums,dp);  
+        Arrays.fill(dp,-1);
+        return robb(0,nums,dp);
     }
 }
