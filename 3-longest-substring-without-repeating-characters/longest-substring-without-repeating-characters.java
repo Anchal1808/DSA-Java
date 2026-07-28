@@ -3,8 +3,8 @@ class Solution {
         int n=s.length();
         int i=0;
         int j=0;
-        int maxlen=0;
         HashMap<Character,Integer> mp=new HashMap<>();
+        int maxLen=0;
         while(j<n){
             mp.put(s.charAt(j),mp.getOrDefault(s.charAt(j),0)+1);
             if(mp.size()<j-i+1){
@@ -15,10 +15,11 @@ class Solution {
                 i++;
             }
             if(mp.size()==j-i+1){
-                maxlen=Math.max(maxlen,j-i+1);
+                maxLen=Math.max(maxLen,j-i+1);
             }
             j++;
+            
         }
-        return maxlen;
+        return maxLen;
     }
 }
