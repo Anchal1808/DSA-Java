@@ -15,8 +15,8 @@ class Solution {
         int down=solve(i+1,j,m,n,dp);
         //right
         int right=solve(i,j+1,m,n,dp);
-        dp[i][j]=down+right;
-        return dp[i][j];
+        // dp[i][j]=down+right;
+        return dp[i][j]=down+right;
     }
     public int uniquePaths(int m, int n) {
         int[][] dp=new int[m][n];
